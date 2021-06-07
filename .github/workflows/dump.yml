@@ -14,13 +14,9 @@ jobs:
       matrix:
         include:
           - model: "SM-G998B"
-            region: "DBT"
-          - model: "SM-G998B"
             region: "NPL"
           - model: "SM-G998B"
             region: "XID"
-          - model: "SM-G998B"
-            region: "INU"
 
     steps:
       - name: Checkout repo
