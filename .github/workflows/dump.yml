@@ -42,7 +42,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y liblz4-tool zip simg2img
           sudo wget -O /usr/bin/samfirm https://github.com/jesec/SamFirm.NET/releases/latest/download/linux-x64 && sudo chmod +x /usr/bin/samfirm
-          sudo wget -O /usr/bin/lpunpack http://de.corsicanu.ro/downloads/lpunpack && sudo chmod +x /usr/bin/lpunpack
+          sudo wget -O /usr/bin/cscdecoder https://github.com/soulr344/OMCDecoder/releases/latest/download/cscdecoder-x86_64 && sudo chmod +x /usr/bin/cscdecoder
       - name: Fetch firmware
         if: steps.check.outputs.need_update == 1
         run: samfirm -m ${{ matrix.model }} -r ${{ matrix.region }}
@@ -88,6 +88,7 @@ jobs:
           [[ -e optics.img ]] && sudo mkdir -p optics && sudo mount -o loop,rw,sync optics.img optics
           [[ -e prism.img ]] && sudo mkdir -p prism && sudo mount -o loop,rw,sync prism.img prism
           mkdir $releasedir/prism $releasedir/optics
+          for i in `sudo find optics -type f -name "cscfeature*.xml"`; do sudo cscdecoder -i $i; done;
           sudo zip -r4 $releasedir/$target_version-prism.zip prism/etc;
           sudo zip -r4 $releasedir/$target_version-optics.zip optics;
           sudo umount system && sudo umount vendor && rm -rf *img
