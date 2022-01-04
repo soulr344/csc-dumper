@@ -3,7 +3,7 @@ name: Check for update and dump CSC
 on:
   push:
   schedule:
-    - cron: "0 12 6 * *"
+    - cron: "0 */6 * * *"
 
 jobs:
   update:
